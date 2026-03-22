@@ -10,9 +10,9 @@ This repository highlights my practical experience in bridging software and hard
 * **Status:** ✅ Completed
 * **Topics:** Introduction to embedded systems, IDE setup, digital and analog I/O using ESP32 and MicroPython. Includes full Wokwi simulation proofs.
 
-### Lab 2: Basic Input & Output Components
-* **Status:** ⏳ Upcoming (Weeks 3-4)
-* **Topics:** Interfacing with basic input (Push buttons, LDR sensors) and output components (7-Segment displays, LEDs, Speakers).
+### [Lab 2: Sensors, Inputs, and PWM Signal Generation](./Lab_02_Sensors_and_Inputs)
+* **Status:** ✅ Completed
+* **Topics:** Interfacing with basic analog and digital inputs (LDR, Ultrasonic HC-SR04) and controlling outputs (RGB LED) using PWM. Includes full Wokwi simulation proofs.
 
 ### Lab 3: GPIO Advanced Usage & Motor Control
 * **Status:** ⏳ Upcoming (Weeks 5-6)
