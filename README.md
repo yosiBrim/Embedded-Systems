@@ -14,9 +14,9 @@ This repository highlights my practical experience in bridging software and hard
 * **Status:** ✅ Completed
 * **Topics:** Interfacing with basic analog and digital inputs (LDR, Ultrasonic HC-SR04) and controlling outputs (RGB LED) using PWM. Includes full Wokwi simulation proofs.
 
-### Lab 3: GPIO Advanced Usage & Motor Control
-* **Status:** ⏳ Upcoming (Weeks 5-6)
-* **Topics:** Configuring GPIOs, controlling DC motors via H-Bridge, and Servo motor actuation.
+### [Lab 3: Motors Control and Interfacing](./Lab_03_Motors)
+* **Status:** ✅ Completed
+* **Topics:** Implementation of precision motor control using MicroPython. Key areas include Analog-to-PWM mapping for Servo motors and designing a non-blocking state machine for Stepper motor actuation via the A4988 driver and digital inputs.
 
 ### Lab 4: Introduction to Embedded Linux
 * **Status:** ⏳ Upcoming (Week 7)
