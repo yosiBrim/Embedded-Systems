@@ -17,10 +17,10 @@ This repository highlights my practical experience in bridging software and hard
 ### [Lab 3: Motors Control and Interfacing](./Lab_03_Motors)
 * **Status:** ✅ Completed
 * **Topics:** Implementation of precision motor control using MicroPython. Key areas include Analog-to-PWM mapping for Servo motors and designing a non-blocking state machine for Stepper motor actuation via the A4988 driver and digital inputs.
-
-### Lab 4: Introduction to Embedded Linux
-* **Status:** ⏳ Upcoming (Week 7)
-* **Topics:** OS architecture, Hardware/Software interfaces, and working with Linux in embedded environments (e.g., Raspberry Pi).
+* 
+### [Lab 4: Introduction to Embedded Linux](./Lab_04_Embedded_Linux)
+* **Status:** ✅ Completed
+* **Topics:** Linux filesystem hierarchy, access control (octal permissions), and process management (foreground/background execution). Includes hands-on CLI practice and process signals.
 
 ### Lab 5: Advanced Linux & Communication Protocols
 * **Status:** ⏳ Upcoming (Weeks 8-10)
