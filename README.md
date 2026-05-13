@@ -22,8 +22,12 @@ This repository highlights my practical experience in bridging software and hard
 * **Status:** ✅ Completed
 * **Topics:** Linux filesystem hierarchy, access control (octal permissions), and process management (foreground/background execution). Includes hands-on CLI practice and process signals.
 
-### Lab 5: Advanced Linux & Communication Protocols
-* **Status:** ⏳ Upcoming (Weeks 8-10)
+### [Lab 5: GPIO Interfacing and Logic Control](./Lab_05_GPIO_and_Interrupts)
+* **Status:** ✅ Completed
+* **Topics:** Direct hardware interaction via Raspberry Pi GPIO, Active High/Low circuit topologies, internal Pull-Up/Down configuration, and asynchronous event handling using Hardware Interrupts.
+
+### Lab 6: Advanced Linux & Communication Protocols
+* **Status:** ⏳ Upcoming
 * **Topics:** Serial communication (I2C, SPI, UART) and wireless interfaces (WiFi, Bluetooth).
 
 ### 🚀 Final Project
