@@ -1,0 +1,30 @@
+import time
+
+STATE_INIT = 0
+STATE_MONITOR = 1
+STATE_FALL_DETECTED = 2
+
+class FallDetectionSystem:
+    def __init__(self):
+        self.state = STATE_INIT
+        print("System Initialized.")
+
+    def run(self):
+        while True:
+            if self.state == STATE_INIT:
+                print("State: INIT - Setting up hardware...")
+                time.sleep(1) 
+                self.state = STATE_MONITOR
+
+            elif self.state == STATE_MONITOR:
+                print("State: MONITOR - Watching for falls...")
+                time.sleep(2)
+
+            elif self.state == STATE_FALL_DETECTED:
+                print("State: FALL DETECTED! - Sending alert.")
+                time.sleep(2)
+                self.state = STATE_MONITOR
+
+if __name__ == "__main__":
+    system = FallDetectionSystem()
+    system.run()

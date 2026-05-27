@@ -12,3 +12,11 @@ Responsibilities:
 - Extract kinematic landmarks (specifically Head and Knees).
 - Implement the mathematical logic to determine if a fall has occurred.
 """
+class PoseEngine:
+    def __init__(self):
+        print("AI Engine: Initializing model...")
+
+    def detect_fall(self, frame):
+        # כאן בעתיד נכתוב את האלגוריתם לזיהוי נפילה
+        print("AI Engine: Analyzing frame...")
+        return False # כרגע תמיד מחזיר "לא נפל"
