@@ -26,9 +26,10 @@ The system is designed with a top-down modular approach, separating hardware int
 * **Output (Hardware):** I2C-based Digital Display (OLED/LCD).
 
 ## 🗂️ Repository Structure
-* `main.py`: The central execution loop (Software equivalent to the FPGA Top-Level).
+* `main.py`: The central execution loop (Software equivalent to the FPGA Top-Level). Includes camera initialization and temporal noise filtering (Debounce).
 * `pose_engine.py`: AI inference and mathematical logic (Software equivalent to the `posture_detector` block).
 * `i2c_display.py`: Hardware abstraction layer (HAL) for the screen.
+* `requirements.txt`: Python package dependencies.
 * `docs/`: Contains project proposal, draw.io diagrams, and the IEEE paper draft.
 
 ## 🔌 Hardware Pinout & Connections
@@ -37,11 +38,15 @@ The system is designed with a top-down modular approach, separating hardware int
 | Camera Module 3 | CSI Port | Located between HDMI and Audio Jack. |
 | I2C Display | GPIO 2 (SDA), GPIO 3 (SCL) | Requires 3.3V/5V VCC and GND. |
 
+## 💡 Key Engineering Insights (FPGA vs. Software PoC)
+1. **Resource Management:** Instead of writing RTL modules for spatial downsampling and BRAM management (as in FPGA), the PoC leverages MediaPipe's `model_complexity=0` to abstract image scaling and optimize CPU load.
+2. **Noise Filtering (Debounce):** The VHDL FSM uses a clock-cycle counter to prevent false positives from glitchy frames. In our Python implementation, this logic is identically replicated in `main.py` using a frame-counter threshold (`consecutive_falls >= 3`), achieving the same hysteresis effect in software.
+
 ## 🚀 Development Roadmap (Milestones)
 - [x] **Phase 0:** Project initialization, GitHub repository, and LaTeX skeleton.
-- [x] **Phase 1:** Software architecture, FSM logic formulation, and HAL implementation.
-- [ ] **Phase 2:** Physical camera setup and interface configuration (Enable CSI in OS & install OpenCV).
-- [ ] **Phase 3:** Integrate video stream into `pose_engine.py` (AI model deployment).
-- [ ] **Phase 4:** Main loop integration and performance optimization (FPS considerations).
-- [ ] **Phase 5:** I2C Display hardware integration (`i2c_display.py`).
-- [ ] **Phase 6:** Final testing, validation, and IEEE documentation update.
+- [x] **Phase 1:** Software architecture, basic FSM logic, and HAL implementation.
+- [x] **Phase 2:** AI Software Integration (MediaPipe geometric modeling) and Top-Level Debounce implementation.
+- [ ] **Phase 3:** Hardware Setup: Enable OS CSI port, install dependencies (`requirements.txt`), and physical camera test.
+- [ ] **Phase 4:** Live Validation: Run physical video stream through `main.py` to evaluate real-time FPS and confidence scores.
+- [ ] **Phase 5:** Hardware Output: Physical I2C Display wiring and logic integration.
+- [ ] **Phase 6:** Final system validation and IEEE documentation update.
