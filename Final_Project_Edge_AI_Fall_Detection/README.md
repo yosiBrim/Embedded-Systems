@@ -36,7 +36,7 @@ The system is designed with a top-down modular approach, separating hardware int
 | Component | RPi 3 Interface | Notes |
 | :--- | :--- | :--- |
 | Camera Module 3 | CSI Port | Located between HDMI and Audio Jack. |
-| I2C Display | GPIO 2 (SDA), GPIO 3 (SCL) | Requires 3.3V/5V VCC and GND. |
+| 0.96" OLED (SSD1306) | GPIO 2 (SDA), GPIO 3 (SCL) | VCC to 3.3V (Pin 1), GND to Ground (Pin 6). |
 
 ## 💡 Key Engineering Insights (FPGA vs. Software PoC)
 1. **Resource Management:** Instead of writing RTL modules for spatial downsampling and BRAM management (as in FPGA), the PoC leverages MediaPipe's `model_complexity=0` to abstract image scaling and optimize CPU load.
