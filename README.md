@@ -22,21 +22,17 @@ This repository highlights my practical experience in bridging software and hard
 * **Status:** ✅ Completed
 * **Topics:** Linux filesystem hierarchy, access control (octal permissions), and process management (foreground/background execution). Includes hands-on CLI practice and process signals.
 
-### [Lab 5: GPIO Interfacing and Logic Control](./Lab_05_GPIO_and_Interrupts)
+### [Lab 5: GPIO Interfacing and Logic Control](./Lab_05_GPIO_and_Logic_Control)
 * **Status:** ✅ Completed
-* **Topics:** Direct hardware interaction via Raspberry Pi GPIO, Active High/Low circuit topologies, internal Pull-Up/Down configuration, and asynchronous event handling using Hardware Interrupts.
+* [cite_start]**Topics:** Transitioning from software logic to physical hardware interaction in Embedded Linux[cite: 96, 97]. [cite_start]Covers Active High/Low topologies, internal Pull-Up/Down configuration, asynchronous event handling via hardware interrupts, and synchronous serial communication (I2C) using the `smbus2` library to drive a 4-digit 7-segment display[cite: 98, 172, 174].
 
-### Lab 6: Advanced Linux & Communication Protocols
-* **Status:** ⏳ Upcoming
-* **Topics:** Serial communication (I2C, SPI, UART) and wireless interfaces (WiFi, Bluetooth).
-
-### 🚀 Final Project
-* **Status:** ⏳ Pending (Weeks 11-13)
-* **Description:** Comprehensive embedded system project integrating the skills acquired throughout the semester.
+### [🚀 Final Project: Edge AI Fall Detection System (Software vs. FPGA PoC)](./Edge_AI_Fall_Detection)
+* **Status:** 🏃‍♂️ Active / In Progress
+* **Description:** A Proof of Concept (PoC) Edge Computing system utilizing a Raspberry Pi and the MediaPipe CV framework to detect human falls in real-time. This software-centric pipeline serves as a comparative counterpart to a custom RTL/VHDL implementation on an Artix-7 FPGA. It features a geometric skeletal logic engine and an I2C-driven SSD1306 OLED hardware abstraction layer (HAL).
 
 ## 🛠️ Technologies & Tools
-* **Hardware:** ESP32, Raspberry Pi (Linux)
+* **Hardware:** ESP32, Raspberry Pi 3, 0.96" OLED (SSD1306), RPi Camera Module 3
 * **Programming Languages:** MicroPython, Python, Bash/C
-* **Actuators & Sensors:** DC/Servo Motors, LDR, 7-Segment, Audio
-* **Protocols:** GPIO, PWM, I2C, SPI, UART, WiFi, Bluetooth
-* **Environments:** Wokwi Simulation, Linux OS
+* **Actuators & Sensors:** DC/Servo Motors, LDR, 7-Segment, Ultrasonic, Video Sensors
+* **Protocols & Interfaces:** GPIO, PWM, CSI, I2C, SPI, UART, WiFi, Bluetooth
+* **Environments & Libraries:** Wokwi Simulation, Linux OS, OpenCV, MediaPipe
