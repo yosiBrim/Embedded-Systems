@@ -1,0 +1,12 @@
+# ==========================================
+# Edge AI Fall Detection - Dependencies
+# ==========================================
+
+# Computer Vision: Used for capturing and manipulating the video stream from the Pi Camera.
+opencv-python
+
+# AI Inference Engine: Google's lightweight ML framework for real-time geometric pose estimation.
+mediapipe
+
+# Hardware HAL: Driver for I2C communication with the physical SSD1306 OLED display.
+luma.oled
