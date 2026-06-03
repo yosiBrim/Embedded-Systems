@@ -1,29 +1,25 @@
-# Lab 5: GPIO Interfacing and Logic Control ⚡
+# Lab 5: GPIO Interfacing and Logic Control 🚦
 
-## Overview
-This laboratory explores direct hardware interaction using the Raspberry Pi General Purpose Input/Output (GPIO) pins. The focus is on bridging software logic with physical electrical components, moving from basic continuous polling to efficient, event-driven hardware control.
+## 📌 Overview
+[cite_start]This laboratory focuses on General Purpose Input/Output (GPIO) operations within an Embedded Linux environment[cite: 96]. [cite_start]The transition from software logic to physical hardware interaction is demonstrated through LED actuation, button input sensing, and the implementation of a 7-Segment digital counter via serial communication[cite: 97].
 
-## 🛠️ Technical Key Highlights
+## 🛠️ Tasks Performed
 
-### 1. Hardware Topologies (Active High/Low)
-* Designed and tested circuits demonstrating both Active High and Active Low configurations.
-* Controlled output states dynamically via Python using the `RPi.GPIO` library.
+### 1. Frequency-Controlled LED (Active High/Low)
+* [cite_start]Toggled an LED on GPIO 11 at a constant 1Hz frequency[cite: 105].
+* [cite_start]Explored Active High and Active Low circuit topologies, validating that hardware polarity can be seamlessly managed and abstracted via software logic[cite: 106, 226].
 
-### 2. Internal Pull-Up/Pull-Down Configuration
-* Eliminated the need for external resistors for button inputs by configuring the SoC's internal Pull-Up (`PUD_UP`) resistors via software.
-* Demonstrated state transitions triggered by connecting the GPIO pin to the common ground.
+### 2. Interrupt-Driven Input and Frequency Scaling
+* [cite_start]Interfaced a push-button on GPIO 15, utilizing the SoC's internal Pull-Up resistor (`GPIO.PUD_UP`) to optimize hardware resources[cite: 149, 167, 227].
+* [cite_start]Implemented asynchronous hardware interrupts (edge detection on `GPIO.FALLING`) to dynamically double the LED blink frequency[cite: 149, 151, 168]. [cite_start]This event-driven approach ensures the CPU is not monopolized by polling, meeting real-time responsiveness requirements[cite: 230, 231].
 
-### 3. Asynchronous Interrupt Handling
-* Upgraded from blocking polling loops to **Hardware Interrupts**.
-* Utilized edge detection (`GPIO.FALLING`) and callback functions to trigger events (e.g., doubling LED blink frequency) instantaneously.
-* Implemented software debouncing (`bouncetime`) to prevent noisy mechanical switch signals from causing multiple rapid triggers.
+### 3. Synchronous Serial Communication (I2C)
+* [cite_start]Established an I2C communication protocol using the Python `smbus2` library[cite: 172].
+* [cite_start]Acted as the bus master to format and transmit a 4-digit integer sequence to an external Serial 7-Segment display module (address `0x71`)[cite: 174, 182].
 
-### 4. 7-Segment State Machine
-* Developed a digital counter mapping numerals (0-9) to a 7-segment display via a custom dictionary logic structure.
-* Integrated an interrupt-driven direction toggle (counting Up/Down) without interrupting the main timing loop.
+## 💡 Key Engineering Insights
+* [cite_start]**Hardware Abstraction:** Software logic can manage physical polarity, allowing for greater flexibility in component selection and PCB design[cite: 226].
+* [cite_start]**Resource Optimization:** Leveraging internal pull-up/pull-down resistors simplifies external schematics and minimizes hardware failure points[cite: 227, 228].
+* [cite_start]**Event-Driven Architecture:** Replacing blocking `while` loops with edge-triggered callbacks is fundamental for efficient Embedded Linux system design[cite: 229, 230, 231].
 
----
-
-## 📝 Deliverables
-* **Python Scripts:** `part_a.py`, `part_b.py`, `part_c.py`
-* **Full Technical Report & Wokwi Schematics:** [Lab_5_GPIO_Interfacing_and_Logic_Control.pdf](./Lab_5_GPIO_Interfacing_and_Logic_Control.pdf)
+[cite_start]*Note: To ensure maximum clarity, all circuit diagrams in this documentation were generated using the Wokwi simulation environment, providing a standardized and highly readable schematic layout[cite: 99, 100].*
