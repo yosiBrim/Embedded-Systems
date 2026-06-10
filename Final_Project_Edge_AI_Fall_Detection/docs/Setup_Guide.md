@@ -1,47 +1,100 @@
-# 🛠️ Environment Setup & Remote Connection Guide
+# Setup & Execution Guide: Edge AI Fall Detection
 
-This guide documents how to remotely connect to the Raspberry Pi for development and debugging.
+This guide provides step-by-step instructions for configuring the hardware and software environment to run the Edge AI Fall Detection PoC on a Raspberry Pi.
 
-## Remote Desktop Connection (Windows MSTSC)
-Since the Raspberry Pi runs headlessly (without a physical monitor), we use Windows Remote Desktop to access its graphical interface. This is required to view the OpenCV video windows during AI inference testing.
+## 🛠️ 1. Hardware Assembly
 
-### Prerequisites (Run once on Pi via SSH)
-To allow the Pi to accept RDP connections, the `xrdp` server must be installed:
-`sudo apt update`
-`sudo apt install xrdp -y`
+Before powering on the Raspberry Pi, ensure all physical connections are secure.
+
+### Camera Module
+* Connect the **Raspberry Pi Camera Module 3** to the **CSI port** (located between the HDMI and Audio ports).
+* Ensure the silver contacts on the ribbon cable face the HDMI port.
+* **Important:** Gently press the small "Sunny" connector on the camera board itself to ensure it hasn't loosened, preventing `select() timeout` errors.
+
+### OLED Display (I2C)
+Connect the 0.96" SSD1306 OLED display to the Raspberry Pi GPIO header:
+
+| OLED Pin | RPi GPIO Pin | Description |
+| :--- | :--- | :--- |
+| **VCC** | Pin 1 (3.3V) | Power supply |
+| **GND** | Pin 6 (GND) | Ground |
+| **SCL** | Pin 5 (GPIO 3) | I2C Clock |
+| **SDA** | Pin 3 (GPIO 2) | I2C Data |
 
 ---
 
-## 🔌 Connection Scenarios
+## ⚙️ 2. OS & Interface Configuration
 
-### Scenario A: College Network (Router Connection)
-*Use this when the Pi is connected to the college network and receives a standard IP (e.g., `10.1.4.194`).*
+Boot up the Raspberry Pi and open a terminal.
 
-1. Open **Remote Desktop Connection** (MSTSC) on Windows.
-2. Enter the Raspberry Pi's assigned IP address and click **Connect**.
-3. Accept the certificate warning if prompted.
-4. In the `xrdp` login screen, ensure the session is set to **Xorg**.
-5. Enter the credentials (default: `pi` / `pi`).
+1. **Open the Raspberry Pi Configuration Tool:**
+   ```bash
+   sudo raspi-config
+   ```
+2. **Enable I2C:**
+   * Navigate to `3 Interface Options` -> `I4 I2C`.
+   * Select `Yes` to enable the ARM I2C interface.
+3. **Enable Camera (Legacy/Libcamera):**
+   * Depending on your OS version, navigate to `Interface Options` and ensure the Camera/Legacy Camera is enabled. (Note: This project uses `Picamera2` which relies on the modern `libcamera` stack).
+4. **Reboot the system:**
+   ```bash
+   sudo reboot
+   ```
 
-### Scenario B: Direct Cable to Personal Computer (Home Setup)
-*Use this when connecting the Pi directly to your PC via an Ethernet cable, without a router.*
+**Verify Hardware:**
+Run the following command to detect the OLED display on the I2C bus:
+```bash
+i2cdetect -y 1
+```
+*You should see the address `3c` populated in the grid.*
 
-**Step 1: Share PC Internet with the Pi (Windows ICS)**
-1. Press `Win + R`, type `ncpa.cpl`, and press Enter to open Network Connections.
-2. Right-click your active **Wi-Fi** connection -> **Properties** -> **Sharing** tab.
-3. Check the box: `"Allow other network users to connect through this computer's Internet connection"`.
-4. From the drop-down, select the **Ethernet** connection attached to the Pi, then click **OK**.
+---
 
-**Step 2: Find the Pi's assigned IP Address**
-1. Open Windows CMD and connect via the Pi's default IPv6 address:
-   `ssh pi@fe80::bb51:9f0f:7c9b:82d7%9`
-   *(Type `yes` if asked, password is `pi`)*
-2. Once inside the Pi's terminal, run: 
-   `hostname -I`
-3. Copy the standard IPv4 address it outputs (usually looks like `192.168.137.X`).
+## 🐍 3. Software Environment & Dependencies
 
-**Step 3: Connect via Remote Desktop**
-1. Open **Remote Desktop Connection** (MSTSC) on Windows.
-2. Enter the copied IP address (e.g., `192.168.137.90`) and click **Connect**.
-3. In the `xrdp` login screen, ensure the session is set to **Xorg**.
-4. Enter the credentials (`pi` / `pi`).
+To avoid Python's PEP 668 `externally-managed-environment` restriction on modern Raspberry Pi OS, we will use a virtual environment.
+
+1. **Update system packages and install system requirements:**
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install -y python3-venv i2c-tools libcamera-dev python3-opencv
+   ```
+
+2. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/](https://github.com/)[YOUR-USERNAME]/Final_Project_Edge_AI_Fall_Detection.git
+   cd Final_Project_Edge_AI_Fall_Detection
+   ```
+
+3. **Create and activate a Python virtual environment:**
+   ```bash
+   python3 -m venv .venv --system-site-packages
+   source .venv/bin/activate
+   ```
+   *(Note: The `--system-site-packages` flag is crucial for inheriting the natively compiled `Picamera2` and `cv2` OS packages).*
+
+4. **Install required Python libraries:**
+   ```bash
+   pip install luma.oled numpy
+   ```
+
+---
+
+## 🚀 4. Running the System
+
+With the hardware connected and the environment active, execute the top-level script:
+
+```bash
+python3 main.py
+```
+
+### Expected Behavior:
+1. The OLED display will initialize and show `Status: Normal`.
+2. The `Picamera2` sensor will warm up and stream frames directly to the AI engine.
+3. The terminal will output live bounding box dimensions (`W` and `H`).
+4. If a person drops to the floor (or mimics a fall where $Width > Height \times 0.8$ for 2 consecutive frames), the terminal will report a state transition, and the OLED will flash **`ALERT: FALL!`**.
+
+### Stopping the System Safely
+To terminate the program, press:
+**`Ctrl + C`**
+The system implements a Graceful Shutdown routine that safely stops the camera pipeline and clears the I2C OLED buffer before exiting.
