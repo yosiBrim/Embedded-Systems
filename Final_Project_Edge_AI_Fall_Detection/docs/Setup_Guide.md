@@ -62,8 +62,8 @@ To avoid Python's PEP 668 `externally-managed-environment` restriction on modern
 
 2. **Clone the repository:**
    ```bash
-   git clone [https://github.com/](https://github.com/)[YOUR-USERNAME]/Final_Project_Edge_AI_Fall_Detection.git
-   cd Final_Project_Edge_AI_Fall_Detection
+   git clone [https://github.com/yosiBrim/Embedded-Systems.git](https://github.com/yosiBrim/Embedded-Systems.git)
+   cd Embedded-Systems/Final_Project_Edge_AI_Fall_Detection
    ```
 
 3. **Create and activate a Python virtual environment:**
